@@ -73,3 +73,4 @@ SourceArt/**/*.tga
 
 # Cache files for the editor to use
 [Dd]erivedDataCache/
+sh.exe.stackdump
