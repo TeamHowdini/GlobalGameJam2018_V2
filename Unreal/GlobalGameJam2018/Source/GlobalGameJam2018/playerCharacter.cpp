@@ -56,7 +56,7 @@ void APlayerCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	SetupCameraReference();
-
+	CurrentHealth = StartHealth;
 }
 
 void APlayerCharacter::TurnAtRate(float Rate)

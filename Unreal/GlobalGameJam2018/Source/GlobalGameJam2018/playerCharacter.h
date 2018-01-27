@@ -34,6 +34,20 @@ public:
 	UPROPERTY(EditAnywhere, Category = Movement)
 		float MovementDeadZone = 0.1f;
 
+	UPROPERTY(EditAnywhere, Category = Tweakable)
+		int StartHealth = 5;
+
+	UFUNCTION(BlueprintCallable, Category = Health)
+		void SetHealth(int NewHealth) { CurrentHealth = NewHealth; }
+
+	UFUNCTION(BlueprintCallable, Category = Health)
+		const int GetHealth() { return CurrentHealth; }
+
+	UFUNCTION(BlueprintCallable, Category = Health)
+		int IncrementHealth(int HealthIncrease) { return CurrentHealth += HealthIncrease; }
+
+	UFUNCTION(BlueprintCallable, Category = Health)
+		int DecrementHealth(int HealthDecrease) { return CurrentHealth -= HealthDecrease; }
 	ATopDownCamera* MainCamera;
 
 protected:
@@ -46,6 +60,7 @@ protected:
 
 	void LookUpAtRate(float Rate);
 
+	int CurrentHealth;
 protected:
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
