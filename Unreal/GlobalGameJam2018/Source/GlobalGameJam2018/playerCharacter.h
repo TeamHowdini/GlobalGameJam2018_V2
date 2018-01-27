@@ -12,31 +12,20 @@ UCLASS(config = Game)
 class APlayerCharacter : public ACharacter
 {
 	GENERATED_BODY()
-
-		/** Camera boom positioning the camera behind the character */
-		UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-		class USpringArmComponent* CameraBoom;
-
-	/** Follow camera */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-		class UCameraComponent* FollowCamera;
 public:
 	APlayerCharacter();
-
-	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
-		float BaseTurnRate;
-
-	/** Base look up/down rate, in deg/sec. Other scaling may affect final rate. */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
-		float BaseLookUpRate;
-
+	////////////////////////////////////////////
+	///UPROPERIES
+	////////////////////////////////////////////
 	UPROPERTY(EditAnywhere, Category = Movement)
 		float MovementDeadZone = 0.1f;
 
 	UPROPERTY(EditAnywhere, Category = Tweakable)
 		int StartHealth = 5;
 
+	////////////////////////////////////////////
+	///UFUNCTIONS
+	////////////////////////////////////////////
 	UFUNCTION(BlueprintCallable, Category = Health)
 		void SetHealth(int NewHealth) { CurrentHealth = NewHealth; }
 
@@ -48,7 +37,12 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = Health)
 		int DecrementHealth(int HealthDecrease) { return CurrentHealth -= HealthDecrease; }
-	ATopDownCamera* MainCamera;
+	
+	UFUNCTION(BlueprintImplementableEvent)
+		void PressPull();
+
+	UFUNCTION(BlueprintImplementableEvent)
+		void PressPush();
 
 protected:
 
@@ -61,7 +55,10 @@ protected:
 	void LookUpAtRate(float Rate);
 
 	int CurrentHealth;
-protected:
+
+	ATopDownCamera* MainCamera;
+
+	FVector AimDirection;
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
@@ -76,15 +73,5 @@ public:
 
 	void BindPull();
 	void BindPush();
-	FVector AimDirection;
-
-
-	UFUNCTION(BlueprintImplementableEvent)
-		void PressPull();
-
-	UFUNCTION(BlueprintImplementableEvent)
-		void PressPush();
-
-
-
+	
 };
