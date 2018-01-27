@@ -7,8 +7,8 @@
 #include "TopDownCamera.generated.h"
 
 /**
- * 
- */
+*
+*/
 
 class APlayerCharacter;
 
@@ -16,7 +16,7 @@ UCLASS()
 class GLOBALGAMEJAM2018_API ATopDownCamera : public ACameraActor
 {
 	GENERATED_BODY()
-	
+
 public:
 	ATopDownCamera();
 
@@ -30,23 +30,29 @@ public:
 
 	// Camera boom positioning the camera beside the character
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class USpringArmComponent* CameraBoom;
+		class USpringArmComponent* CameraBoom;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
-	TArray<APlayerCharacter*> playerReferences;
+		TArray<APlayerCharacter*> playerReferences;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
-	TArray<FVector> playerLocations;
+		TArray<FVector> playerLocations;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
-	TArray<float> distances;
+		TArray<float> distances;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	float targetArmLength;
+		float targetArmLength;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	FVector offset;
+		float armMinLength;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	FRotator rotation;
+		float armMaxLength;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		FVector offset;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		FRotator rotation;
 };
