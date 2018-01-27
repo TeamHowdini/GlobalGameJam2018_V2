@@ -23,6 +23,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = Tweakable)
 		int StartHealth = 5;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Scuffed)
+		bool AmILegit = false;
+
 	////////////////////////////////////////////
 	///UFUNCTIONS
 	////////////////////////////////////////////
