@@ -8,28 +8,31 @@
 
 class ATopDownCamera;
 
-UCLASS(config=Game)
+UCLASS(config = Game)
 class APlayerCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
-	/** Camera boom positioning the camera behind the character */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class USpringArmComponent* CameraBoom;
+		/** Camera boom positioning the camera behind the character */
+		UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+		class USpringArmComponent* CameraBoom;
 
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class UCameraComponent* FollowCamera;
+		class UCameraComponent* FollowCamera;
 public:
 	APlayerCharacter();
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
-	float BaseTurnRate;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+		float BaseTurnRate;
 
 	/** Base look up/down rate, in deg/sec. Other scaling may affect final rate. */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
-	float BaseLookUpRate;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+		float BaseLookUpRate;
+
+	UPROPERTY(EditAnywhere, Category = Movement)
+		float MovementDeadZone = 0.1f;
 
 	ATopDownCamera* MainCamera;
 
@@ -44,9 +47,9 @@ protected:
 	void LookUpAtRate(float Rate);
 
 protected:
-	
+
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	
+
 	virtual void BeginPlay() override;
 
 public:
@@ -54,16 +57,19 @@ public:
 	//Gets the camera reference and exits the game if no valid camera is setup
 	void SetupCameraReference();
 
+	virtual void Tick(float DeltaTime) override;
+
 	void BindPull();
 	void BindPush();
+	FVector AimDirection;
+
 
 	UFUNCTION(BlueprintImplementableEvent)
-	void PressPull();
+		void PressPull();
 
 	UFUNCTION(BlueprintImplementableEvent)
-	void PressPush();
+		void PressPush();
 
 
 
 };
-
