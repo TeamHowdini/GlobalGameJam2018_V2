@@ -24,7 +24,7 @@ public:
 		int StartHealth = 5;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Scuffed)
-		bool AmILegit = false;
+		FRotator AimRotation;
 
 	////////////////////////////////////////////
 	///UFUNCTIONS
