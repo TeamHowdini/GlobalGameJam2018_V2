@@ -111,13 +111,13 @@ void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	AimRotation = FVector(AimDirection.X, AimDirection.Y, 0.f);
+	FRotator CameraRotation = MainCamera->CameraBoom->GetComponentRotation();
+	FRotator YawRotation(0.f, CameraRotation.Yaw, 0.f);
+	AimRotation = YawRotation.RotateVector(FVector(AimDirection.X, AimDirection.Y, 0.f));
 	AimRotation.Normalize();
-	if (AimDirection.X || AimDirection.Y) {
-		FRotator CameraRotation = MainCamera->CameraBoom->GetComponentRotation();
-		FRotator YawRotation(0.f, CameraRotation.Yaw, 0.f);
-
-		SetActorRotation(AimRotation.Rotation() - YawRotation);
+	if (AimDirection.X || AimDirection.Y) 
+	{
+		SetActorRotation(FVector(AimDirection.X, AimDirection.Y, 0.f).Rotation() -YawRotation);
 	}
 }
 
