@@ -48,7 +48,7 @@ void APlayerCharacter::BeginPlay()
 
 void APlayerCharacter::TurnAtRate(float Rate)
 {
-	if ((Controller != NULL) && (Rate != AimDirection.X))
+	if ((Controller != NULL) && (Rate != 0.0f))
 	{
 		AimDirection.X = Rate;
 	}
@@ -56,7 +56,7 @@ void APlayerCharacter::TurnAtRate(float Rate)
 
 void APlayerCharacter::LookUpAtRate(float Rate)
 {
-	if ((Controller != NULL) && (Rate != AimDirection.Y))
+	if ((Controller != NULL) && (Rate != 0.0f))
 	{
 		AimDirection.Y = Rate;
 	}
@@ -111,7 +111,7 @@ void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (!AimDirection.IsNearlyZero(MovementDeadZone)) {
+	if (AimDirection.X || AimDirection.Y) {
 		FRotator AimRotation = FVector(AimDirection.X, AimDirection.Y, 0.f).Rotation();
 		FRotator CameraRotation = MainCamera->CameraBoom->GetComponentRotation();
 		FRotator YawRotation(0.f, CameraRotation.Yaw, 0.f);
