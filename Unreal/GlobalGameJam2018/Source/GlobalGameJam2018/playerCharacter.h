@@ -1,4 +1,4 @@
-// Copyright 1998-2017 Epic Games, Inc. All Rights Reserved.
+// Copyright (c) 2018 Team Howdini.
 
 #pragma once
 
@@ -12,42 +12,21 @@ UCLASS(config = Game)
 class APlayerCharacter : public ACharacter
 {
 	GENERATED_BODY()
+
 public:
 	APlayerCharacter();
-	////////////////////////////////////////////
-	///UPROPERIES
-	////////////////////////////////////////////
-	UPROPERTY(EditAnywhere, Category = Movement)
-		float MovementDeadZone = 0.1f;
 
-	UPROPERTY(EditAnywhere, Category = Tweakable)
-		int StartHealth = 5;
+	//Gets the camera reference and exits the game if no valid camera is setup
+	void SetupCameraReference();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Scuffed)
-		FVector AimRotation;
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	////////////////////////////////////////////
-	///UFUNCTIONS
-	////////////////////////////////////////////
-	UFUNCTION(BlueprintCallable, Category = Health)
-		void SetHealth(int NewHealth) { CurrentHealth = NewHealth; }
+	virtual void BeginPlay() override;
 
-	UFUNCTION(BlueprintCallable, Category = Health)
-		const int GetHealth() { return CurrentHealth; }
+	virtual void Tick(float DeltaTime) override;
 
-	UFUNCTION(BlueprintCallable, Category = Health)
-		int IncrementHealth(int HealthIncrease) { return CurrentHealth += HealthIncrease; }
-
-	UFUNCTION(BlueprintCallable, Category = Health)
-		int DecrementHealth(int HealthDecrease) { return CurrentHealth -= HealthDecrease; }
-	
-	UFUNCTION(BlueprintImplementableEvent)
-		void PressPull();
-
-	UFUNCTION(BlueprintImplementableEvent)
-		void PressPush();
-
-protected:
+	void BindPull();
+	void BindPush();
 
 	void MoveForward(float Value);
 
@@ -57,24 +36,40 @@ protected:
 
 	void LookUpAtRate(float Rate);
 
+	UFUNCTION(BlueprintCallable, Category = Health)
+	void SetHealth(int NewHealth) { CurrentHealth = NewHealth; }
+
+	UFUNCTION(BlueprintCallable, Category = Health)
+	const int GetHealth() { return CurrentHealth; }
+
+	UFUNCTION(BlueprintCallable, Category = Health)
+	int IncrementHealth(int HealthIncrease) { return CurrentHealth += HealthIncrease; }
+
+	UFUNCTION(BlueprintCallable, Category = Health)
+	int DecrementHealth(int HealthDecrease) { return CurrentHealth -= HealthDecrease; }
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void PressPull();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void PressPush();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void BackPressed();
+
+public:
+	UPROPERTY(EditAnywhere, Category = Movement)
+	float MovementDeadZone = 0.1f;
+
+	UPROPERTY(EditAnywhere, Category = Tweakable)
+	int StartHealth = 5;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Scuffed)
+	FVector AimRotation;
+	
 	int CurrentHealth;
 
 	ATopDownCamera* MainCamera;
 
 	FVector AimDirection;
-
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-	virtual void BeginPlay() override;
-
-public:
-
-	//Gets the camera reference and exits the game if no valid camera is setup
-	void SetupCameraReference();
-
-	virtual void Tick(float DeltaTime) override;
-
-	void BindPull();
-	void BindPush();
-	
 };

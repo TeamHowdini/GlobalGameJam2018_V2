@@ -1,16 +1,13 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright (c) 2018 Team Howdini.
 
 #include "PlayerShield.h"
-
 
 // Sets default values
 APlayerShield::APlayerShield()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
 	Health = 100.f;
-
 	RotationSpeed = 10.f;
 }
 

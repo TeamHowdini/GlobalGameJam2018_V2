@@ -1,14 +1,11 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright (c) 2018 Team Howdini.
 
 #pragma once
 
 #include "Instances/MainGameInstance.h"
-
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "MenuPawn.generated.h"
-
-
 
 UCLASS()
 class GLOBALGAMEJAM2018_API AMenuPawn : public APawn
@@ -19,34 +16,22 @@ public:
 	// Sets default values for this pawn's properties
 	AMenuPawn();
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-public:
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void StartPressed();
 
-	void NextLevelPressed();
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void EndPressed();
 
-	UFUNCTION(BlueprintCallable, Category = "Set Pawn Id")
-	void SetId(int idp);
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void BackPressed();
 
-	UFUNCTION(BlueprintCallable, Category = "Set Pawn Id")
-	bool GetEnabled() { return IsEnabled;  }
-
-public:
-	UPROPERTY(BlueprintReadWrite)
-	bool IsEnabled = false;
-
-private:
-	UMainGameInstance* GameInstance;
-
-	int Id = 0;
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
 };

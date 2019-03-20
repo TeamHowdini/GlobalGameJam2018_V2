@@ -1,10 +1,11 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright (c) 2018 Team Howdini.
 
 #include "TopDownCamera.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "playerCharacter.h"
 #include "Kismet/GameplayStatics.h"
+#include "Engine/World.h"
 
 ATopDownCamera::ATopDownCamera()
 {
@@ -12,7 +13,7 @@ ATopDownCamera::ATopDownCamera()
 
 	// Attach our camera and visible object to our root component. Offset and rotate the camera.
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
-	CameraBoom->AttachTo(RootComponent);
+	CameraBoom->AttachToComponent(RootComponent, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 	CameraBoom->bAbsoluteRotation = true;
 	CameraBoom->bUsePawnControlRotation = false;
 	CameraBoom->bAutoActivate = true;

@@ -1,4 +1,4 @@
-// Copyright 1998-2017 Epic Games, Inc. All Rights Reserved.
+// Copyright (c) 2018 Team Howdini.
 
 #include "playerCharacter.h"
 #include "Camera/CameraComponent.h"
@@ -36,6 +36,8 @@ void APlayerCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerIn
 
 	PlayerInputComponent->BindAxis("TurnRate", this, &APlayerCharacter::TurnAtRate);
 	PlayerInputComponent->BindAxis("LookUpRate", this, &APlayerCharacter::LookUpAtRate);
+
+	InputComponent->BindAction("Menu_Button", IE_Pressed, this, &APlayerCharacter::BackPressed);
 }
 
 void APlayerCharacter::BeginPlay()
@@ -90,20 +92,24 @@ void APlayerCharacter::MoveRight(float Value)
 	}
 }
 
-void APlayerCharacter::SetupCameraReference() {
+void APlayerCharacter::SetupCameraReference()
+{
 	TArray<AActor*> FoundCamera;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ATopDownCamera::StaticClass(), FoundCamera);
-	if (FoundCamera.Num() == 1) {
+
+	if (FoundCamera.Num() == 1)
+	{
 		MainCamera = Cast<ATopDownCamera>(FoundCamera[0]);
 	}
-	else {
+	else
+	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("[ERROR] Please place one TopDownCamera BP in the scene!"));
-		UKismetSystemLibrary::QuitGame(GetWorld(), GetWorld()->GetFirstPlayerController(), EQuitPreference::Quit);
+		UKismetSystemLibrary::QuitGame(GetWorld(), GetWorld()->GetFirstPlayerController(), EQuitPreference::Quit, false);
 	}
 	if (!MainCamera)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("[ERROR] Failed to cast to TopDownCamera!"));
-		UKismetSystemLibrary::QuitGame(GetWorld(), GetWorld()->GetFirstPlayerController(), EQuitPreference::Quit);
+		UKismetSystemLibrary::QuitGame(GetWorld(), GetWorld()->GetFirstPlayerController(), EQuitPreference::Quit, false);
 	}
 }
 

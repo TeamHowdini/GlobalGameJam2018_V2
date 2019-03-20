@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright (c) 2018 Team Howdini.
 
 #include "GlobalGameJam2018.h"
 #include "Modules/ModuleManager.h"
