@@ -13,7 +13,7 @@ ATopDownCamera::ATopDownCamera()
 
 	// Attach our camera and visible object to our root component. Offset and rotate the camera.
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
-	CameraBoom->AttachToComponent(RootComponent, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+	CameraBoom->SetupAttachment(RootComponent);
 	CameraBoom->bAbsoluteRotation = true;
 	CameraBoom->bUsePawnControlRotation = false;
 	CameraBoom->bAutoActivate = true;
